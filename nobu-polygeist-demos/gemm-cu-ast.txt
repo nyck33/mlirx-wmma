@@ -1,0 +1,351 @@
+//nyck33@lenovo-gtx1650:/mnt/d/LLVM/NewPolygeistDir/nobu-polygeist-demos$ cgeist gemm.cu -O3 -function=* --resource-dir=$LLVM_BUILD_DIR/lib/clang/18 --cuda-gpu-arch=sm_75 --show-ast -S -raise-scf-to-affine
+warning: CUDA version 12.1 is only partially supported
+Emitting fn: _Z28__device_stub__matmul_kernelPfS_S_
+matmul_kernel
+Emitting fn: _Z6matmulPfS_S_
+matmul
+CompoundStmt 0x5642ab0544e8
+|-DeclStmt 0x5642ab052870
+| |-VarDecl 0x5642ab0526e8  used d_A 'float *'
+| |-VarDecl 0x5642ab052768  used d_B 'float *'
+| `-VarDecl 0x5642ab0527e8  used d_C 'float *'
+|-CallExpr 0x5642ab052b80 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab052b68 'cudaError_t (*)(void **, size_t)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab052b48 'cudaError_t (void **, size_t)' lvalue Function 0x5642aaa306c8 'cudaMalloc' 'cudaError_t (void **, size_t)'
+| |-CStyleCastExpr 0x5642ab052990 'void **' <BitCast>
+| | `-UnaryOperator 0x5642ab052938 'float **' prefix '&' cannot overflow
+| |   `-DeclRefExpr 0x5642ab0528e8 'float *' lvalue Var 0x5642ab0526e8 'd_A' 'float *'
+| `-BinaryOperator 0x5642ab052a68 'unsigned long' '*'
+|   |-ImplicitCastExpr 0x5642ab052a50 'unsigned long' <IntegralCast>
+|   | `-BinaryOperator 0x5642ab0529f8 'int' '*'
+|   |   |-IntegerLiteral 0x5642ab0529b8 'int' 200
+|   |   `-IntegerLiteral 0x5642ab0529d8 'int' 400
+|   `-UnaryExprOrTypeTraitExpr 0x5642ab052a30 'unsigned long' sizeof 'float'
+|-CallExpr 0x5642ab052e50 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab052e38 'cudaError_t (*)(void **, size_t)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab052e18 'cudaError_t (void **, size_t)' lvalue Function 0x5642aaa306c8 'cudaMalloc' 'cudaError_t (void **, size_t)'
+| |-CStyleCastExpr 0x5642ab052c60 'void **' <BitCast>
+| | `-UnaryOperator 0x5642ab052c30 'float **' prefix '&' cannot overflow
+| |   `-DeclRefExpr 0x5642ab052c10 'float *' lvalue Var 0x5642ab052768 'd_B' 'float *'
+| `-BinaryOperator 0x5642ab052d38 'unsigned long' '*'
+|   |-ImplicitCastExpr 0x5642ab052d20 'unsigned long' <IntegralCast>
+|   | `-BinaryOperator 0x5642ab052cc8 'int' '*'
+|   |   |-IntegerLiteral 0x5642ab052c88 'int' 400
+|   |   `-IntegerLiteral 0x5642ab052ca8 'int' 300
+|   `-UnaryExprOrTypeTraitExpr 0x5642ab052d00 'unsigned long' sizeof 'float'
+|-CallExpr 0x5642ab053120 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab053108 'cudaError_t (*)(void **, size_t)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab0530e8 'cudaError_t (void **, size_t)' lvalue Function 0x5642aaa306c8 'cudaMalloc' 'cudaError_t (void **, size_t)'
+| |-CStyleCastExpr 0x5642ab052f30 'void **' <BitCast>
+| | `-UnaryOperator 0x5642ab052f00 'float **' prefix '&' cannot overflow
+| |   `-DeclRefExpr 0x5642ab052ee0 'float *' lvalue Var 0x5642ab0527e8 'd_C' 'float *'
+| `-BinaryOperator 0x5642ab053008 'unsigned long' '*'
+|   |-ImplicitCastExpr 0x5642ab052ff0 'unsigned long' <IntegralCast>
+|   | `-BinaryOperator 0x5642ab052f98 'int' '*'
+|   |   |-IntegerLiteral 0x5642ab052f58 'int' 200
+|   |   `-IntegerLiteral 0x5642ab052f78 'int' 300
+|   `-UnaryExprOrTypeTraitExpr 0x5642ab052fd0 'unsigned long' sizeof 'float'
+|-CallExpr 0x5642ab053360 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab053348 'cudaError_t (*)(void *, const void *, size_t, enum cudaMemcpyKind)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab0532c8 'cudaError_t (void *, const void *, size_t, enum cudaMemcpyKind)' lvalue Function 0x5642aaa4ac38 'cudaMemcpy' 'cudaError_t (void *, const void *, size_t, enum cudaMemcpyKind)'
+| |-ImplicitCastExpr 0x5642ab0533b8 'void *' <BitCast>
+| | `-ImplicitCastExpr 0x5642ab0533a0 'float *' <LValueToRValue>
+| |   `-DeclRefExpr 0x5642ab053198 'float *' lvalue Var 0x5642ab0526e8 'd_A' 'float *'
+| |-ImplicitCastExpr 0x5642ab0533e8 'const void *' <BitCast>
+| | `-ImplicitCastExpr 0x5642ab0533d0 'float *' <LValueToRValue>
+| |   `-DeclRefExpr 0x5642ab0531b8 'float *' lvalue ParmVar 0x5642ab052470 'A' 'float *'
+| |-BinaryOperator 0x5642ab053288 'unsigned long' '*'
+| | |-ImplicitCastExpr 0x5642ab053270 'unsigned long' <IntegralCast>
+| | | `-BinaryOperator 0x5642ab053218 'int' '*'
+| | |   |-IntegerLiteral 0x5642ab0531d8 'int' 200
+| | |   `-IntegerLiteral 0x5642ab0531f8 'int' 400
+| | `-UnaryExprOrTypeTraitExpr 0x5642ab053250 'unsigned long' sizeof 'float'
+| `-DeclRefExpr 0x5642ab0532a8 'enum cudaMemcpyKind' EnumConstant 0x5642aa9aee10 'cudaMemcpyHostToDevice' 'enum cudaMemcpyKind'
+|-CallExpr 0x5642ab0535b0 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab053598 'cudaError_t (*)(void *, const void *, size_t, enum cudaMemcpyKind)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab053578 'cudaError_t (void *, const void *, size_t, enum cudaMemcpyKind)' lvalue Function 0x5642aaa4ac38 'cudaMemcpy' 'cudaError_t (void *, const void *, size_t, enum cudaMemcpyKind)'
+| |-ImplicitCastExpr 0x5642ab053608 'void *' <BitCast>
+| | `-ImplicitCastExpr 0x5642ab0535f0 'float *' <LValueToRValue>
+| |   `-DeclRefExpr 0x5642ab053448 'float *' lvalue Var 0x5642ab052768 'd_B' 'float *'
+| |-ImplicitCastExpr 0x5642ab053638 'const void *' <BitCast>
+| | `-ImplicitCastExpr 0x5642ab053620 'float *' <LValueToRValue>
+| |   `-DeclRefExpr 0x5642ab053468 'float *' lvalue ParmVar 0x5642ab0524f0 'B' 'float *'
+| |-BinaryOperator 0x5642ab053538 'unsigned long' '*'
+| | |-ImplicitCastExpr 0x5642ab053520 'unsigned long' <IntegralCast>
+| | | `-BinaryOperator 0x5642ab0534c8 'int' '*'
+| | |   |-IntegerLiteral 0x5642ab053488 'int' 400
+| | |   `-IntegerLiteral 0x5642ab0534a8 'int' 300
+| | `-UnaryExprOrTypeTraitExpr 0x5642ab053500 'unsigned long' sizeof 'float'
+| `-DeclRefExpr 0x5642ab053558 'enum cudaMemcpyKind' EnumConstant 0x5642aa9aee10 'cudaMemcpyHostToDevice' 'enum cudaMemcpyKind'
+|-DeclStmt 0x5642ab0537c0
+| `-VarDecl 0x5642ab053660  used blockDim 'dim3':'struct dim3' callinit
+|   `-CXXConstructExpr 0x5642ab053780 'dim3':'struct dim3' 'void (unsigned int, unsigned int, unsigned int)'
+|     |-ImplicitCastExpr 0x5642ab053730 'unsigned int' <IntegralCast>
+|     | `-IntegerLiteral 0x5642ab0536c8 'int' 16
+|     |-ImplicitCastExpr 0x5642ab053748 'unsigned int' <IntegralCast>
+|     | `-IntegerLiteral 0x5642ab0536e8 'int' 16
+|     `-CXXDefaultArgExpr 0x5642ab053760 'unsigned int'
+|-DeclStmt 0x5642ab053c58
+| `-VarDecl 0x5642ab0537e8  used gridDim 'dim3':'struct dim3' callinit
+|   `-CXXConstructExpr 0x5642ab053c18 'dim3':'struct dim3' 'void (unsigned int, unsigned int, unsigned int)'
+|     |-BinaryOperator 0x5642ab0539f0 'unsigned int' '/'
+|     | |-ParenExpr 0x5642ab053968 'unsigned int'
+|     | | `-BinaryOperator 0x5642ab053948 'unsigned int' '-'
+|     | |   |-BinaryOperator 0x5642ab0538f0 'unsigned int' '+'
+|     | |   | |-ImplicitCastExpr 0x5642ab0538d8 'unsigned int' <IntegralCast>
+|     | |   | | `-IntegerLiteral 0x5642ab053850 'int' 300
+|     | |   | `-ImplicitCastExpr 0x5642ab0538c0 'unsigned int' <LValueToRValue>
+|     | |   |   `-MemberExpr 0x5642ab053890 'unsigned int' lvalue .x 0x5642aa979938
+|     | |   |     `-DeclRefExpr 0x5642ab053870 'dim3':'struct dim3' lvalue Var 0x5642ab053660 'blockDim' 'dim3':'struct dim3'
+|     | |   `-ImplicitCastExpr 0x5642ab053930 'unsigned int' <IntegralCast>
+|     | |     `-IntegerLiteral 0x5642ab053910 'int' 1
+|     | `-ImplicitCastExpr 0x5642ab0539d8 'unsigned int' <LValueToRValue>
+|     |   `-MemberExpr 0x5642ab0539a8 'unsigned int' lvalue .x 0x5642aa979938
+|     |     `-DeclRefExpr 0x5642ab053988 'dim3':'struct dim3' lvalue Var 0x5642ab053660 'blockDim' 'dim3':'struct dim3'
+|     |-BinaryOperator 0x5642ab053bb0 'unsigned int' '/'
+|     | |-ParenExpr 0x5642ab053b28 'unsigned int'
+|     | | `-BinaryOperator 0x5642ab053b08 'unsigned int' '-'
+|     | |   |-BinaryOperator 0x5642ab053ab0 'unsigned int' '+'
+|     | |   | |-ImplicitCastExpr 0x5642ab053a98 'unsigned int' <IntegralCast>
+|     | |   | | `-IntegerLiteral 0x5642ab053a10 'int' 200
+|     | |   | `-ImplicitCastExpr 0x5642ab053a80 'unsigned int' <LValueToRValue>
+|     | |   |   `-MemberExpr 0x5642ab053a50 'unsigned int' lvalue .y 0x5642aa9799a0
+|     | |   |     `-DeclRefExpr 0x5642ab053a30 'dim3':'struct dim3' lvalue Var 0x5642ab053660 'blockDim' 'dim3':'struct dim3'
+|     | |   `-ImplicitCastExpr 0x5642ab053af0 'unsigned int' <IntegralCast>
+|     | |     `-IntegerLiteral 0x5642ab053ad0 'int' 1
+|     | `-ImplicitCastExpr 0x5642ab053b98 'unsigned int' <LValueToRValue>
+|     |   `-MemberExpr 0x5642ab053b68 'unsigned int' lvalue .y 0x5642aa9799a0
+|     |     `-DeclRefExpr 0x5642ab053b48 'dim3':'struct dim3' lvalue Var 0x5642ab053660 'blockDim' 'dim3':'struct dim3'
+|     `-CXXDefaultArgExpr 0x5642ab053bf8 'unsigned int'
+|-CUDAKernelCallExpr 0x5642ab053f10 'void'
+| |-ImplicitCastExpr 0x5642ab053ef8 'void (*)(float *, float *, float *)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab053c70 'void (float *, float *, float *)' lvalue Function 0x5642ab051198 'matmul_kernel' 'void (float *, float *, float *)'
+| |-CallExpr 0x5642ab053d60 'unsigned int'
+| | |-ImplicitCastExpr 0x5642ab053d48 'unsigned int (*)(dim3, dim3, size_t, void *)' <FunctionToPointerDecay>
+| | | `-DeclRefExpr 0x5642ab053cd0 'unsigned int (dim3, dim3, size_t, void *)' lvalue Function 0x5642ab050ed0 '__cudaPushCallConfiguration' 'unsigned int (dim3, dim3, size_t, void *)'
+| | |-CXXConstructExpr 0x5642ab053db8 'dim3':'struct dim3' 'void (const dim3 &) noexcept'
+| | | `-ImplicitCastExpr 0x5642ab053da0 'const dim3':'const struct dim3' lvalue <NoOp>
+| | |   `-DeclRefExpr 0x5642ab053c90 'dim3':'struct dim3' lvalue Var 0x5642ab0537e8 'gridDim' 'dim3':'struct dim3'    
+| | |-CXXConstructExpr 0x5642ab053e00 'dim3':'struct dim3' 'void (const dim3 &) noexcept'
+| | | `-ImplicitCastExpr 0x5642ab053de8 'const dim3':'const struct dim3' lvalue <NoOp>
+| | |   `-DeclRefExpr 0x5642ab053cb0 'dim3':'struct dim3' lvalue Var 0x5642ab053660 'blockDim' 'dim3':'struct dim3'   
+| | |-CXXDefaultArgExpr 0x5642ab053e30 'size_t':'unsigned long'
+| | `-CXXDefaultArgExpr 0x5642ab053e50 'void *'
+| |-ImplicitCastExpr 0x5642ab053f50 'float *' <LValueToRValue>
+| | `-DeclRefExpr 0x5642ab053e70 'float *' lvalue Var 0x5642ab0526e8 'd_A' 'float *'
+| |-ImplicitCastExpr 0x5642ab053f68 'float *' <LValueToRValue>
+| | `-DeclRefExpr 0x5642ab053e90 'float *' lvalue Var 0x5642ab052768 'd_B' 'float *'
+| `-ImplicitCastExpr 0x5642ab053f80 'float *' <LValueToRValue>
+|   `-DeclRefExpr 0x5642ab053eb0 'float *' lvalue Var 0x5642ab0527e8 'd_C' 'float *'
+|-CallExpr 0x5642ab054148 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab054130 'cudaError_t (*)(void *, const void *, size_t, enum cudaMemcpyKind)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab054110 'cudaError_t (void *, const void *, size_t, enum cudaMemcpyKind)' lvalue Function 0x5642aaa4ac38 'cudaMemcpy' 'cudaError_t (void *, const void *, size_t, enum cudaMemcpyKind)'
+| |-ImplicitCastExpr 0x5642ab0541a0 'void *' <BitCast>
+| | `-ImplicitCastExpr 0x5642ab054188 'float *' <LValueToRValue>
+| |   `-DeclRefExpr 0x5642ab053fe0 'float *' lvalue ParmVar 0x5642ab052570 'C' 'float *'
+| |-ImplicitCastExpr 0x5642ab0541d0 'const void *' <BitCast>
+| | `-ImplicitCastExpr 0x5642ab0541b8 'float *' <LValueToRValue>
+| |   `-DeclRefExpr 0x5642ab054000 'float *' lvalue Var 0x5642ab0527e8 'd_C' 'float *'
+| |-BinaryOperator 0x5642ab0540d0 'unsigned long' '*'
+| | |-ImplicitCastExpr 0x5642ab0540b8 'unsigned long' <IntegralCast>
+| | | `-BinaryOperator 0x5642ab054060 'int' '*'
+| | |   |-IntegerLiteral 0x5642ab054020 'int' 200
+| | |   `-IntegerLiteral 0x5642ab054040 'int' 300
+| | `-UnaryExprOrTypeTraitExpr 0x5642ab054098 'unsigned long' sizeof 'float'
+| `-DeclRefExpr 0x5642ab0540f0 'enum cudaMemcpyKind' EnumConstant 0x5642aa9aeea0 'cudaMemcpyDeviceToHost' 'enum cudaMemcpyKind'
+|-CallExpr 0x5642ab054290 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab054278 'cudaError_t (*)(void *)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab054258 'cudaError_t (void *)' lvalue Function 0x5642aaa462d8 'cudaFree' 'cudaError_t (void *)'
+| `-ImplicitCastExpr 0x5642ab0542d0 'void *' <BitCast>
+|   `-ImplicitCastExpr 0x5642ab0542b8 'float *' <LValueToRValue>
+|     `-DeclRefExpr 0x5642ab054238 'float *' lvalue Var 0x5642ab0526e8 'd_A' 'float *'
+|-CallExpr 0x5642ab054390 'cudaError_t':'enum cudaError'
+| |-ImplicitCastExpr 0x5642ab054378 'cudaError_t (*)(void *)' <FunctionToPointerDecay>
+| | `-DeclRefExpr 0x5642ab054358 'cudaError_t (void *)' lvalue Function 0x5642aaa462d8 'cudaFree' 'cudaError_t (void *)'
+| `-ImplicitCastExpr 0x5642ab0543d0 'void *' <BitCast>
+|   `-ImplicitCastExpr 0x5642ab0543b8 'float *' <LValueToRValue>
+|     `-DeclRefExpr 0x5642ab054338 'float *' lvalue Var 0x5642ab052768 'd_B' 'float *'
+`-CallExpr 0x5642ab054490 'cudaError_t':'enum cudaError'
+  |-ImplicitCastExpr 0x5642ab054478 'cudaError_t (*)(void *)' <FunctionToPointerDecay>
+  | `-DeclRefExpr 0x5642ab054458 'cudaError_t (void *)' lvalue Function 0x5642aaa462d8 'cudaFree' 'cudaError_t (void *)'
+  `-ImplicitCastExpr 0x5642ab0544d0 'void *' <BitCast>
+    `-ImplicitCastExpr 0x5642ab0544b8 'float *' <LValueToRValue>
+      `-DeclRefExpr 0x5642ab054438 'float *' lvalue Var 0x5642ab0527e8 'd_C' 'float *'
+Emitting fn: _ZN4dim3C1Ejjj
+dim3
+ init: - baseInit:0 memberInit:1 anyMember:1 indirectMember:0 isinClass:0 delegating:0 isPack:0
+FieldDecl 0x5642aa979938 </usr/local/cuda-12.1/include/vector_types.h:420:5, col:18> col:18 referenced x 'unsigned int'
+ImplicitCastExpr 0x5642aa97a3f0 'unsigned int' <LValueToRValue>
+`-DeclRefExpr 0x5642aa97a3b0 'unsigned int' lvalue ParmVar 0x5642aa979a90 'vx' 'unsigned int'
+ init: - baseInit:0 memberInit:1 anyMember:1 indirectMember:0 isinClass:0 delegating:0 isPack:0
+FieldDecl 0x5642aa9799a0 </usr/local/cuda-12.1/include/vector_types.h:420:5, col:21> col:21 referenced y 'unsigned int'
+ImplicitCastExpr 0x5642aa97a468 'unsigned int' <LValueToRValue>
+`-DeclRefExpr 0x5642aa97a428 'unsigned int' lvalue ParmVar 0x5642aa979b10 'vy' 'unsigned int'
+ init: - baseInit:0 memberInit:1 anyMember:1 indirectMember:0 isinClass:0 delegating:0 isPack:0
+FieldDecl 0x5642aa979a08 </usr/local/cuda-12.1/include/vector_types.h:420:5, col:24> col:24 referenced z 'unsigned int'
+ImplicitCastExpr 0x5642aa97a4e0 'unsigned int' <LValueToRValue>
+`-DeclRefExpr 0x5642aa97a4a0 'unsigned int' lvalue ParmVar 0x5642aa979b90 'vz' 'unsigned int'
+CompoundStmt 0x5642aa97a530
+Emitting fn: _ZN4dim3C1ERKS_
+dim3
+ init: - baseInit:0 memberInit:1 anyMember:1 indirectMember:0 isinClass:0 delegating:0 isPack:0
+FieldDecl 0x5642aa979938 </usr/local/cuda-12.1/include/vector_types.h:420:5, col:18> col:18 referenced x 'unsigned int'
+ImplicitCastExpr 0x5642aaa15d00 'unsigned int' <LValueToRValue>
+`-MemberExpr 0x5642aaa15cd0 'const unsigned int' lvalue .x 0x5642aa979938
+  `-DeclRefExpr 0x5642aaa15cb0 'const dim3':'const struct dim3' lvalue ParmVar 0x5642aaa15238 '' 'const dim3 &'       
+ init: - baseInit:0 memberInit:1 anyMember:1 indirectMember:0 isinClass:0 delegating:0 isPack:0
+FieldDecl 0x5642aa9799a0 </usr/local/cuda-12.1/include/vector_types.h:420:5, col:21> col:21 referenced y 'unsigned int'
+ImplicitCastExpr 0x5642aaa15d88 'unsigned int' <LValueToRValue>
+`-MemberExpr 0x5642aaa15d58 'const unsigned int' lvalue .y 0x5642aa9799a0
+  `-DeclRefExpr 0x5642aaa15d38 'const dim3':'const struct dim3' lvalue ParmVar 0x5642aaa15238 '' 'const dim3 &'       
+ init: - baseInit:0 memberInit:1 anyMember:1 indirectMember:0 isinClass:0 delegating:0 isPack:0
+FieldDecl 0x5642aa979a08 </usr/local/cuda-12.1/include/vector_types.h:420:5, col:24> col:24 referenced z 'unsigned int'
+ImplicitCastExpr 0x5642aaa15e10 'unsigned int' <LValueToRValue>
+`-MemberExpr 0x5642aaa15de0 'const unsigned int' lvalue .z 0x5642aa979a08
+  `-DeclRefExpr 0x5642aaa15dc0 'const dim3':'const struct dim3' lvalue ParmVar 0x5642aaa15238 '' 'const dim3 &'       
+CompoundStmt 0x5642aaa15e60
+warning: CUDA version 12.1 is only partially supported
+Emitting fn: _Z13matmul_kernelPfS_S_
+matmul_kernel
+CompoundStmt 0x5642ab03b4a0
+|-DeclStmt 0x5642ab03a7a0
+| `-VarDecl 0x5642ab03a338  used row 'int' cinit
+|   `-ImplicitCastExpr 0x5642ab03a788 'int' <IntegralCast>
+|     `-BinaryOperator 0x5642ab03a768 'unsigned int' '+'
+|       |-BinaryOperator 0x5642ab03a610 'unsigned int' '*'
+|       | |-PseudoObjectExpr 0x5642ab03a508 'unsigned int'
+|       | | |-MSPropertyRefExpr 0x5642ab03a468 '<pseudo-object type>' lvalue
+|       | | | `-OpaqueValueExpr 0x5642ab03a450 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue
+|       | | |   `-DeclRefExpr 0x5642ab03a3a0 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue Var 0x5642aa3dca70 'blockIdx' 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t'     
+|       | | |-OpaqueValueExpr 0x5642ab03a450 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue
+|       | | | `-DeclRefExpr 0x5642ab03a3a0 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue Var 0x5642aa3dca70 'blockIdx' 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t'       
+|       | | `-CallExpr 0x5642ab03a4e8 'unsigned int'
+|       | |   `-ImplicitCastExpr 0x5642ab03a4d0 'unsigned int (*)(void)' <FunctionToPointerDecay>
+|       | |     `-MemberExpr 0x5642ab03a4a0 'unsigned int (void)' lvalue .__fetch_builtin_y 0x5642aa3d0bf8
+|       | |       `-OpaqueValueExpr 0x5642ab03a450 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue
+|       | |         `-DeclRefExpr 0x5642ab03a3a0 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue Var 0x5642aa3dca70 'blockIdx' 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' 
+|       | `-PseudoObjectExpr 0x5642ab03a5e8 'unsigned int'
+|       |   |-MSPropertyRefExpr 0x5642ab03a548 '<pseudo-object type>' lvalue
+|       |   | `-OpaqueValueExpr 0x5642ab03a530 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue
+|       |   |   `-DeclRefExpr 0x5642ab03a3f8 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue Var 0x5642aa3dcb68 'blockDim' 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t'     
+|       |   |-OpaqueValueExpr 0x5642ab03a530 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue
+|       |   | `-DeclRefExpr 0x5642ab03a3f8 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue Var 0x5642aa3dcb68 'blockDim' 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t'       
+|       |   `-CallExpr 0x5642ab03a5c8 'unsigned int'
+|       |     `-ImplicitCastExpr 0x5642ab03a5b0 'unsigned int (*)(void)' <FunctionToPointerDecay>
+|       |       `-MemberExpr 0x5642ab03a580 'unsigned int (void)' lvalue .__fetch_builtin_y 0x5642aa3d2658
+|       |         `-OpaqueValueExpr 0x5642ab03a530 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue
+|       |           `-DeclRefExpr 0x5642ab03a3f8 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue Var 0x5642aa3dcb68 'blockDim' 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' 
+|       `-PseudoObjectExpr 0x5642ab03a740 'unsigned int'
+|         |-MSPropertyRefExpr 0x5642ab03a6a0 '<pseudo-object type>' lvalue
+|         | `-OpaqueValueExpr 0x5642ab03a688 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue
+|         |   `-DeclRefExpr 0x5642ab03a630 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue Var 0x5642aa3dc978 'threadIdx' 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t'  
+|         |-OpaqueValueExpr 0x5642ab03a688 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue
+|         | `-DeclRefExpr 0x5642ab03a630 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue Var 0x5642aa3dc978 'threadIdx' 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t'    
+|         `-CallExpr 0x5642ab03a720 'unsigned int'
+|           `-ImplicitCastExpr 0x5642ab03a708 'unsigned int (*)(void)' <FunctionToPointerDecay>
+|             `-MemberExpr 0x5642ab03a6d8 'unsigned int (void)' lvalue .__fetch_builtin_y 0x5642aa3cf048
+|               `-OpaqueValueExpr 0x5642ab03a688 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue
+|                 `-DeclRefExpr 0x5642ab03a630 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue Var 0x5642aa3dc978 'threadIdx' 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t'
+|-DeclStmt 0x5642ab03ac38
+| `-VarDecl 0x5642ab03a7d0  used col 'int' cinit
+|   `-ImplicitCastExpr 0x5642ab03ac20 'int' <IntegralCast>
+|     `-BinaryOperator 0x5642ab03ac00 'unsigned int' '+'
+|       |-BinaryOperator 0x5642ab03aaa8 'unsigned int' '*'
+|       | |-PseudoObjectExpr 0x5642ab03a9a0 'unsigned int'
+|       | | |-MSPropertyRefExpr 0x5642ab03a900 '<pseudo-object type>' lvalue
+|       | | | `-OpaqueValueExpr 0x5642ab03a8e8 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue
+|       | | |   `-DeclRefExpr 0x5642ab03a838 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue Var 0x5642aa3dca70 'blockIdx' 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t'     
+|       | | |-OpaqueValueExpr 0x5642ab03a8e8 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue
+|       | | | `-DeclRefExpr 0x5642ab03a838 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue Var 0x5642aa3dca70 'blockIdx' 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t'       
+|       | | `-CallExpr 0x5642ab03a980 'unsigned int'
+|       | |   `-ImplicitCastExpr 0x5642ab03a968 'unsigned int (*)(void)' <FunctionToPointerDecay>
+|       | |     `-MemberExpr 0x5642ab03a938 'unsigned int (void)' lvalue .__fetch_builtin_x 0x5642aa3d09c0
+|       | |       `-OpaqueValueExpr 0x5642ab03a8e8 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue
+|       | |         `-DeclRefExpr 0x5642ab03a838 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' lvalue Var 0x5642aa3dca70 'blockIdx' 'const __cuda_builtin_blockIdx_t':'const struct __cuda_builtin_blockIdx_t' 
+|       | `-PseudoObjectExpr 0x5642ab03aa80 'unsigned int'
+|       |   |-MSPropertyRefExpr 0x5642ab03a9e0 '<pseudo-object type>' lvalue
+|       |   | `-OpaqueValueExpr 0x5642ab03a9c8 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue
+|       |   |   `-DeclRefExpr 0x5642ab03a890 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue Var 0x5642aa3dcb68 'blockDim' 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t'     
+|       |   |-OpaqueValueExpr 0x5642ab03a9c8 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue
+|       |   | `-DeclRefExpr 0x5642ab03a890 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue Var 0x5642aa3dcb68 'blockDim' 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t'       
+|       |   `-CallExpr 0x5642ab03aa60 'unsigned int'
+|       |     `-ImplicitCastExpr 0x5642ab03aa48 'unsigned int (*)(void)' <FunctionToPointerDecay>
+|       |       `-MemberExpr 0x5642ab03aa18 'unsigned int (void)' lvalue .__fetch_builtin_x 0x5642aa3d2420
+|       |         `-OpaqueValueExpr 0x5642ab03a9c8 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue
+|       |           `-DeclRefExpr 0x5642ab03a890 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' lvalue Var 0x5642aa3dcb68 'blockDim' 'const __cuda_builtin_blockDim_t':'const struct __cuda_builtin_blockDim_t' 
+|       `-PseudoObjectExpr 0x5642ab03abd8 'unsigned int'
+|         |-MSPropertyRefExpr 0x5642ab03ab38 '<pseudo-object type>' lvalue
+|         | `-OpaqueValueExpr 0x5642ab03ab20 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue
+|         |   `-DeclRefExpr 0x5642ab03aac8 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue Var 0x5642aa3dc978 'threadIdx' 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t'  
+|         |-OpaqueValueExpr 0x5642ab03ab20 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue
+|         | `-DeclRefExpr 0x5642ab03aac8 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue Var 0x5642aa3dc978 'threadIdx' 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t'    
+|         `-CallExpr 0x5642ab03abb8 'unsigned int'
+|           `-ImplicitCastExpr 0x5642ab03aba0 'unsigned int (*)(void)' <FunctionToPointerDecay>
+|             `-MemberExpr 0x5642ab03ab70 'unsigned int (void)' lvalue .__fetch_builtin_x 0x5642aa3cee10
+|               `-OpaqueValueExpr 0x5642ab03ab20 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue
+|                 `-DeclRefExpr 0x5642ab03aac8 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t' lvalue Var 0x5642aa3dc978 'threadIdx' 'const __cuda_builtin_threadIdx_t':'const struct __cuda_builtin_threadIdx_t'
+`-IfStmt 0x5642ab03b480
+  |-BinaryOperator 0x5642ab03ad40 '_Bool' '&&'
+  | |-BinaryOperator 0x5642ab03aca8 '_Bool' '<'
+  | | |-ImplicitCastExpr 0x5642ab03ac90 'int' <LValueToRValue>
+  | | | `-DeclRefExpr 0x5642ab03ac50 'int' lvalue Var 0x5642ab03a338 'row' 'int'
+  | | `-IntegerLiteral 0x5642ab03ac70 'int' 200
+  | `-BinaryOperator 0x5642ab03ad20 '_Bool' '<'
+  |   |-ImplicitCastExpr 0x5642ab03ad08 'int' <LValueToRValue>
+  |   | `-DeclRefExpr 0x5642ab03acc8 'int' lvalue Var 0x5642ab03a7d0 'col' 'int'
+  |   `-IntegerLiteral 0x5642ab03ace8 'int' 300
+  `-CompoundStmt 0x5642ab03b458
+    |-DeclStmt 0x5642ab03ae18
+    | `-VarDecl 0x5642ab03ad78  used sum 'float' cinit
+    |   `-ImplicitCastExpr 0x5642ab03ae00 'float' <IntegralToFloating>
+    |     `-IntegerLiteral 0x5642ab03ade0 'int' 0
+    |-ForStmt 0x5642ab03b2a0
+    | |-DeclStmt 0x5642ab03aed0
+    | | `-VarDecl 0x5642ab03ae48  used k 'int' cinit
+    | |   `-IntegerLiteral 0x5642ab03aeb0 'int' 0
+    | |-<<<NULL>>>
+    | |-BinaryOperator 0x5642ab03af40 '_Bool' '<'
+    | | |-ImplicitCastExpr 0x5642ab03af28 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x5642ab03aee8 'int' lvalue Var 0x5642ab03ae48 'k' 'int'
+    | | `-IntegerLiteral 0x5642ab03af08 'int' 400
+    | |-UnaryOperator 0x5642ab03af80 'int' postfix '++'
+    | | `-DeclRefExpr 0x5642ab03af60 'int' lvalue Var 0x5642ab03ae48 'k' 'int'
+    | `-CompoundStmt 0x5642ab03b288
+    |   `-CompoundAssignOperator 0x5642ab03b258 'float' lvalue '+=' ComputeLHSTy='float' ComputeResultTy='float'      
+    |     |-DeclRefExpr 0x5642ab03af98 'float' lvalue Var 0x5642ab03ad78 'sum' 'float'
+    |     `-BinaryOperator 0x5642ab03b238 'float' '*'
+    |       |-ImplicitCastExpr 0x5642ab03b208 'float' <LValueToRValue>
+    |       | `-ArraySubscriptExpr 0x5642ab03b0c0 'float' lvalue
+    |       |   |-ImplicitCastExpr 0x5642ab03b0a8 'float *' <LValueToRValue>
+    |       |   | `-DeclRefExpr 0x5642ab03afb8 'float *' lvalue ParmVar 0x5642ab03a020 'A' 'float *'
+    |       |   `-BinaryOperator 0x5642ab03b088 'int' '+'
+    |       |     |-BinaryOperator 0x5642ab03b030 'int' '*'
+    |       |     | |-ImplicitCastExpr 0x5642ab03b018 'int' <LValueToRValue>
+    |       |     | | `-DeclRefExpr 0x5642ab03afd8 'int' lvalue Var 0x5642ab03a338 'row' 'int'
+    |       |     | `-IntegerLiteral 0x5642ab03aff8 'int' 400
+    |       |     `-ImplicitCastExpr 0x5642ab03b070 'int' <LValueToRValue>
+    |       |       `-DeclRefExpr 0x5642ab03b050 'int' lvalue Var 0x5642ab03ae48 'k' 'int'
+    |       `-ImplicitCastExpr 0x5642ab03b220 'float' <LValueToRValue>
+    |         `-ArraySubscriptExpr 0x5642ab03b1e8 'float' lvalue
+    |           |-ImplicitCastExpr 0x5642ab03b1d0 'float *' <LValueToRValue>
+    |           | `-DeclRefExpr 0x5642ab03b0e0 'float *' lvalue ParmVar 0x5642ab03a0a0 'B' 'float *'
+    |           `-BinaryOperator 0x5642ab03b1b0 'int' '+'
+    |             |-BinaryOperator 0x5642ab03b158 'int' '*'
+    |             | |-ImplicitCastExpr 0x5642ab03b140 'int' <LValueToRValue>
+    |             | | `-DeclRefExpr 0x5642ab03b100 'int' lvalue Var 0x5642ab03ae48 'k' 'int'
+    |             | `-IntegerLiteral 0x5642ab03b120 'int' 300
+    |             `-ImplicitCastExpr 0x5642ab03b198 'int' <LValueToRValue>
+    |               `-DeclRefExpr 0x5642ab03b178 'int' lvalue Var 0x5642ab03a7d0 'col' 'int'
+    `-BinaryOperator 0x5642ab03b438 'float' lvalue '='
+      |-ArraySubscriptExpr 0x5642ab03b3e0 'float' lvalue
+      | |-ImplicitCastExpr 0x5642ab03b3c8 'float *' <LValueToRValue>
+      | | `-DeclRefExpr 0x5642ab03b2d8 'float *' lvalue ParmVar 0x5642ab03a120 'C' 'float *'
+      | `-BinaryOperator 0x5642ab03b3a8 'int' '+'
+      |   |-BinaryOperator 0x5642ab03b350 'int' '*'
+      |   | |-ImplicitCastExpr 0x5642ab03b338 'int' <LValueToRValue>
+      |   | | `-DeclRefExpr 0x5642ab03b2f8 'int' lvalue Var 0x5642ab03a338 'row' 'int'
+      |   | `-IntegerLiteral 0x5642ab03b318 'int' 300
+      |   `-ImplicitCastExpr 0x5642ab03b390 'int' <LValueToRValue>
+      |     `-DeclRefExpr 0x5642ab03b370 'int' lvalue Var 0x5642ab03a7d0 'col' 'int'
+      `-ImplicitCastExpr 0x5642ab03b420 'float' <LValueToRValue>
+        `-DeclRefExpr 0x5642ab03b400 'float' lvalue Var 0x5642ab03ad78 'sum' 'float'

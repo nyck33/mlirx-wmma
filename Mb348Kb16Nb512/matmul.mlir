@@ -1,5 +1,5 @@
 //block comment below
-// mlir-opt -convert-linalg-to-loops -lower-affine -convert-scf-to-cf -convert-cf-to-llvm -convert-arith-to-llvm -convert-func-to-llvm -expand-strided-metadata -finalize-memref-to-llvm -reconcile-unrealized-casts --convert-to-llvm benchmark_matmul.mlir | mlir-cpu-runner -O3 -e main -entry-point-result=void -shared-libs=/mnt/d/LLVM/Polygeist/llvm-project/build/lib/libmlir_c_runner_utils.so
+// mlir-opt -convert-linalg-to-loops -lower-affine -convert-scf-to-cf -convert-cf-to-llvm -convert-arith-to-llvm -convert-func-to-llvm -expand-strided-metadata -finalize-memref-to-llvm -reconcile-unrealized-casts --convert-to-llvm matmul.mlir | mlir-cpu-runner -O3 -e main -entry-point-result=void -shared-libs=/mnt/d/LLVM/Polygeist/llvm-project/build/lib/libmlir_c_runner_utils.so
 
 
 func.func @matmul(%A: memref<2088x2048xf32>, %B: memref<2048x2048xf32>, %C: memref<2088x2048xf32>) {
