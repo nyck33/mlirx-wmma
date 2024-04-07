@@ -76,6 +76,8 @@ module {
         %gridY = arith.constant 64 : index // Adjusted for 1024x1024 matrix size
         %gridZ = arith.constant 1 : index
 
+        %t_start = call @rtclock() : () -> (f32)
+
         //define the gpu.launch blocks for the kernel, grid (2,4,1), block (16,16,1) for 64*32 result tile covered by threads
         gpu.launch blocks(%bx, %by, %bz) in (%grid_x = %gridX, %grid_y = %gridY, %grid_z = %gridZ) threads(%tx, %ty, %tz) in (%block_x = %blockX, %block_y = %blockY, %block_z = %blockZ) {
 
@@ -149,6 +151,29 @@ module {
             // CHECK: Success
             gpu.terminator
         }
+
+        %t_end = call @rtclock() : () -> (f32)
+
+        %t0 = index.constant 0
+        %t1 = index.constant 1
+        //rows of C
+        %M = memref.dim %C, %t0 : memref<1024x1024xf32>
+        //cols of C
+        %N = memref.dim %C, %t1 : memref<1024x1024xf32>
+        //cols of A
+        %K = memref.dim %A, %t1 : memref<1024x1024xf16> 
+        //time taken
+        %time = arith.subf %t_end, %t_start : f32
+        //flops
+        %f1 = arith.muli %M, %N : index
+        %f2 = arith.muli %K, %M : index
+        //2 * M * N * K
+        %t2 = index.constant 2 
+        %f3 = arith.muli %t2, %f2 : index
+        %num_flops
+
+
+
         // Deallocate device memory for matrices A, B, and C asynchronously
         %zA = gpu.dealloc async [%token] %A : memref<1024x1024xf16>
         %zB = gpu.dealloc async [%token] %B : memref<1024x1024xf16>
