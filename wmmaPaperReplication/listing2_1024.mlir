@@ -1,4 +1,4 @@
-//mlir-opt /mnt/d/LLVM/NewPolygeistDir/llvm-project/mlir/test/Integration/GPU/CUDA/TensorCore/wmmaPaperReplication/listing2ijk.mlir  | mlir-opt -lower-affine -convert-scf-to-cf -test-lower-to-nvvm="host-bare-ptr-calling-convention=1 kernel-bare-ptr-calling-convention=1 cubin-chip=sm_75 cubin-format=fatbin" -mlir-print-debuginfo | mlir-cpu-runner   --shared-libs=/mnt/d/LLVM/NewPolygeistDir/llvm-project/build/lib/libmlir_cuda_runtime.so   --shared-libs=/mnt/d/LLVM/NewPolygeistDir/llvm-project/build/lib/libmlir_runner_utils.so   --entry-point-result=void
+//mlir-opt listing2_1024.mlir  | mlir-opt -lower-affine -convert-scf-to-cf -test-lower-to-nvvm="host-bare-ptr-calling-convention=1 kernel-bare-ptr-calling-convention=1 cubin-chip=sm_75 cubin-format=fatbin" -mlir-print-debuginfo | mlir-cpu-runner   --shared-libs=/mnt/d/LLVM/NewPolygeistDir/llvm-project/build/lib/libmlir_cuda_runtime.so   --shared-libs=/mnt/d/LLVM/NewPolygeistDir/llvm-project/build/lib/libmlir_runner_utils.so   --entry-point-result=void -shared-libs=/mnt/d/LLVM/NewPolygeistDir/llvm-project/build/lib/libmlir_c_runner_utils.so
 
 #map0 = affine_map<(d0) -> (d0)>
 #map1 = affine_map<(d0) -> (d0 + 64)>
@@ -78,8 +78,10 @@ module {
 
         %t_start = call @rtclock() : () -> (f32)
 
+        %reps = index.constant 5
         //define the gpu.launch blocks for the kernel, grid (2,4,1), block (16,16,1) for 64*32 result tile covered by threads
-        gpu.launch blocks(%bx, %by, %bz) in (%grid_x = %gridX, %grid_y = %gridY, %grid_z = %gridZ) threads(%tx, %ty, %tz) in (%block_x = %blockX, %block_y = %blockY, %block_z = %blockZ) {
+        affine.for %ti = 0 to %reps{
+            gpu.launch blocks(%bx, %by, %bz) in (%grid_x = %gridX, %grid_y = %gridY, %grid_z = %gridZ) threads(%tx, %ty, %tz) in (%block_x = %blockX, %block_y = %blockY, %block_z = %blockZ) {
 
             affine.for %i = 0 to 1024 step 128 { //128 rows of tile C/A
                 affine.for %j = 0 to 1024 step 128 {//128 cols of tile C/B
@@ -147,10 +149,12 @@ module {
                     }
                 }
             // Print success message to indicate successful execution
-            gpu.printf "Success\n"
+            //gpu.printf "Success\n"
             // CHECK: Success
             gpu.terminator
         }
+        }
+        
 
         %t_end = call @rtclock() : () -> (f32)
 
@@ -165,14 +169,20 @@ module {
         //time taken
         %time = arith.subf %t_end, %t_start : f32
         //flops
-        %f1 = arith.muli %M, %N : index
-        %f2 = arith.muli %K, %M : index
+        %prod1 = arith.muli %M, %N : index
+        %prod2 = arith.muli %prod1, %K : index
         //2 * M * N * K
         %t2 = index.constant 2 
-        %f3 = arith.muli %t2, %f2 : index
-        %num_flops
+        %f3 = arith.muli %t2, %prod2 : index
+        %num_flops = arith.muli %reps, %f3 : index
+        %num_flops_i = arith.index_cast %num_flops : index to i32
+        %num_flops_f = arith.sitofp %num_flops_i : i32 to f32
+        %flops = arith.divf %num_flops_f, %time : f32
 
-
+        // Print the time taken and the number of flops
+        call @printF32(%time) : (f32) -> ()
+        call@printNewline() : () -> ()
+        call @printFlops(%flops) : (f32) -> ()
 
         // Deallocate device memory for matrices A, B, and C asynchronously
         %zA = gpu.dealloc async [%token] %A : memref<1024x1024xf16>
@@ -183,6 +193,11 @@ module {
         gpu.wait [%token]
         return
     }
+
+    func.func private @printNewline() -> ()
+    func.func private @printF32(f32) -> ()
+    func.func private @printFlops(f32) -> ()
+    func.func private @rtclock() -> f32
 
         
     }

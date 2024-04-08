@@ -152,7 +152,7 @@ module {
                     }
                 }
             // Print success message to indicate successful execution
-            gpu.printf "Success\n"
+            //gpu.printf "Success\n"
             // CHECK: Success
             gpu.terminator
         }
